@@ -159,7 +159,7 @@ class MainActivity: FlutterActivity() {
         
         // Create notification with the app icon
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.launch_background) // Using launch_background as fallback
+            .setSmallIcon(R.drawable.ic_notification) // Using launch_background as fallback
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

@@ -113,7 +113,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                 child: Text(
                   appLocalizations?.translate('appTitle') ?? 'Seven Minutes With The Lord',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 24,
                     color: AppColors.textOnPrimary,
                     fontWeight: FontWeight.bold,
                   ),
