@@ -8,6 +8,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.os.Build
+import android.os.PowerManager
+import android.view.WindowManager
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -19,10 +21,13 @@ import androidx.annotation.NonNull
 class MainActivity: FlutterActivity() {
     private val NOTIFICATIONS_CHANNEL = "app.channel.notifications"
     private val AUDIO_CHANNEL = "app.channel.audio"
+    private val WAKELOCK_CHANNEL = "app.channel.wakelock"
     
     private val CHANNEL_ID = "seven_minutes_prayer_channel"
     private val CHANNEL_NAME = "Prayer Notifications"
     private val CHANNEL_DESCRIPTION = "Prayer activity notifications"
+    
+    private var wakeLock: PowerManager.WakeLock? = null
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -89,6 +94,35 @@ class MainActivity: FlutterActivity() {
                     else -> result.notImplemented()
                 }
             }
+            
+        // Set up wake lock method channel
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, WAKELOCK_CHANNEL)
+            .setMethodCallHandler { call, result ->
+                when (call.method) {
+                    "enableWakeLock" -> {
+                        try {
+                            val enabled = enableWakeLock()
+                            result.success(enabled)
+                        } catch (e: Exception) {
+                            println("Error enabling wake lock: ${e.message}")
+                            result.error("WAKELOCK_ERROR", e.message, null)
+                        }
+                    }
+                    "disableWakeLock" -> {
+                        try {
+                            val disabled = disableWakeLock()
+                            result.success(disabled)
+                        } catch (e: Exception) {
+                            println("Error disabling wake lock: ${e.message}")
+                            result.error("WAKELOCK_ERROR", e.message, null)
+                        }
+                    }
+                    else -> result.notImplemented()
+                }
+            }
+            
+        // Enable wake lock by default
+        enableWakeLock()
     }
     
     private fun createNotificationChannel() {
@@ -159,5 +193,81 @@ class MainActivity: FlutterActivity() {
             println("Error playing notification sound: ${e.message}")
             e.printStackTrace()
         }
+    }
+    
+    private fun enableWakeLock(): Boolean {
+        try {
+            println("Enabling wake lock")
+            
+            // Method 1: Using FLAG_KEEP_SCREEN_ON
+            runOnUiThread {
+                window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+            
+            // Method 2: Using PowerManager WakeLock (as a backup)
+            if (wakeLock == null) {
+                val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+                wakeLock = powerManager.newWakeLock(
+                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
+                    "SevenMinutes:WakeLock"
+                )
+            }
+            
+            wakeLock?.let {
+                if (!it.isHeld) {
+                    it.acquire()
+                    println("PowerManager wake lock acquired")
+                }
+            }
+            
+            return true
+        } catch (e: Exception) {
+            println("Error enabling wake lock: ${e.message}")
+            e.printStackTrace()
+            return false
+        }
+    }
+    
+    private fun disableWakeLock(): Boolean {
+        try {
+            println("Disabling wake lock")
+            
+            // Method 1: Clear FLAG_KEEP_SCREEN_ON
+            runOnUiThread {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+            
+            // Method 2: Release PowerManager WakeLock
+            wakeLock?.let {
+                if (it.isHeld) {
+                    it.release()
+                    println("PowerManager wake lock released")
+                }
+            }
+            
+            return true
+        } catch (e: Exception) {
+            println("Error disabling wake lock: ${e.message}")
+            e.printStackTrace()
+            return false
+        }
+    }
+    
+    override fun onResume() {
+        super.onResume()
+        // Re-enable wake lock when activity is resumed
+        enableWakeLock()
+    }
+    
+    override fun onPause() {
+        super.onPause()
+        // Keep screen on even when app is paused
+        // (don't disable the wake lock here)
+    }
+    
+    override fun onDestroy() {
+        // Clean up wake lock when activity is destroyed
+        disableWakeLock()
+        super.onDestroy()
     }
 }
