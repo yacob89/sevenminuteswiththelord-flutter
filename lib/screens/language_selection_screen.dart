@@ -50,6 +50,33 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
       case 'Español':
         locale = Locale('es', '');
         break;
+      case 'عربي':
+        locale = Locale('ar', '');
+        break;
+      case 'Bahasa Indonesia':
+        locale = Locale('id', '');
+        break;
+      case '中文(简体)':
+        locale = Locale('zh', '');
+        break;
+      case '中文(繁體)':
+        locale = Locale('zt', '');
+        break;
+      case '한국어':
+        locale = Locale('ko', '');
+        break;
+      case 'Portuguese':
+        locale = Locale('pt', '');
+        break;
+      case 'русский язык':
+        locale = Locale('ru', '');
+        break;
+      case 'Tagalog':
+        locale = Locale('tl', '');
+        break;
+      case 'українська мова':
+        locale = Locale('uk', '');
+        break;
       default:
         locale = Locale('en', '');
     }
@@ -142,7 +169,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                               color: AppColors.textPrimary,
                               fontSize: 16,
                             ),
-                            items: <String>['English', 'Deutsch', 'Español']
+                            items: <String>['عربي', 'Bahasa Indonesia', '中文(简体)', '中文(繁體)', 'Deutsch', 'English',  'Español', '한국어', 'Portuguese', 'русский язык', 'Tagalog', 'українська мова']
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
