@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../utils/localization.dart';
 import '../widgets/custom_button.dart';
+import '../services/notifications_service.dart';
 import 'activity_screen.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
@@ -59,6 +60,10 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
         builder: (context) => ActivityScreen(locale: locale),
       ),
     );
+  }
+  
+  void _testNotification() {
+    NotificationsService().testNotification();
   }
   
   @override
@@ -150,6 +155,17 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                         PrimaryButton(
                           text: appLocalizations?.translate('start') ?? 'Start!',
                           onPressed: () => _setLocale(context, _selectedLanguage),
+                        ),
+                        
+                        // Test notification button (for debugging)
+                        SizedBox(height: 20),
+                        TextButton.icon(
+                          icon: Icon(Icons.notifications, color: AppColors.primary),
+                          label: Text('Test notification'),
+                          onPressed: _testNotification,
+                          style: TextButton.styleFrom(
+                            foregroundColor: AppColors.primary,
+                          ),
                         ),
                       ],
                     ),
