@@ -4,7 +4,7 @@ Android app that helps you with morning revival
 
 ## Privacy and Policy
 
-Last Updated: 18 February 2024
+Last Updated: 11 March 2025
 
 Welcome to "Seven Minutes with The Lord." We respect your privacy and are committed to protecting it through our compliance with this policy.
 
