@@ -185,15 +185,15 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                         ),
                         
                         // Test notification button (for debugging)
-                        SizedBox(height: 20),
-                        TextButton.icon(
-                          icon: Icon(Icons.notifications, color: AppColors.primary),
-                          label: Text('Test notification'),
-                          onPressed: _testNotification,
-                          style: TextButton.styleFrom(
-                            foregroundColor: AppColors.primary,
-                          ),
-                        ),
+                        // SizedBox(height: 20),
+                        // TextButton.icon(
+                        //   icon: Icon(Icons.notifications, color: AppColors.primary),
+                        //   label: Text('Test notification'),
+                        //   onPressed: _testNotification,
+                        //   style: TextButton.styleFrom(
+                        //     foregroundColor: AppColors.primary,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
