@@ -12,7 +12,7 @@ class NotificationsService {
   static const MethodChannel _audioChannel = MethodChannel('app.channel.audio');
   
   // For debugging
-  bool _debugMode = true;
+  final bool _debugMode = true;
   
   // Initialize notification service
   Future<void> initialize() async {

@@ -1,4 +1,4 @@
-package com.example.seven_minutes_with_the_lord
+package com.churchinbandung.seven_minutes_with_the_lord
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
