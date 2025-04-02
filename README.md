@@ -1,36 +1,54 @@
-# sevenminuteswiththelord
+# 7MinutesWithTheLord
 
-Android app that helps you with morning revival
+Android app "7 Minutes With The Lord".
 
-## Privacy and Policy
+The purpose of this app is to practice our daily contact with The Lord.
 
-Last Updated: 11 March 2025
+Google Playstore link:
 
-Welcome to "Seven Minutes with The Lord." We respect your privacy and are committed to protecting it through our compliance with this policy.
+[![Google Play Badge](google-play-badge.png)](https://play.google.com/store/apps/details?id=com.churchinbandung.seven_minutes_with_the_lord)
 
-This policy describes:
+Current version: 1.0.0
 
-The types of information we may collect from you or that you may provide when you use our "Seven Minutes with The Lord" application (our "App").
-Our practices for collecting, using, maintaining, protecting, and disclosing that information.
-This policy applies only to information we collect through the App and in email, text, and other electronic communications sent through or in connection with the App.
+If you interested to contribute in this project, email me at: yacob.madiana@gmail.com.
 
-1. Information We Collect and How We Collect It
-   We do not collect personal information from our users. Our App is designed to be used without requiring you to provide us with any personal data.
+This app is registered to Church in Bandung. Any form to redistribute the app without permission is not allowed.
 
-2. How We Use Your Information
-   Since our App does not collect personal information, there is no use of such data.
+# Description
 
-3. Disclosure of Your Information
-   As we do not collect any personal information, we do not share, sell, rent, or trade any information with third parties for their commercial purposes.
+Seven Minutes with the Lord
 
-4. Data Security
-   We strive to implement measures designed to secure your personal information from accidental loss and from unauthorized access, use, alteration, and disclosure. However, the transmission of information via the internet and mobile platforms is not completely secure. Although we do our best to protect your information, we cannot guarantee the security of your information transmitted through our App.
+## CPPCCTP
 
-5. Children Under the Age of 13
-   Our App is not intended for children under 13 years of age. No one under age 13 may provide any personal information to or on the App. We do not knowingly collect personal information from children under 13. If you are under 13, do not use this App or provide any information about yourself to us.
+I. **Calling** – Calling on the Name of the Lord to set our mind on the spirit – 1 Cor.12:3; Rom. 8:6; 10:12-13 (1/2 Minute)
 
-6. Changes to Our Privacy Policy
-   We may update our Privacy Policy from time to time. We will notify you of any changes by updating the date at the top of the Privacy Policy and, if the changes are significant, we will provide a more prominent notice (including, for certain services, email notification of Privacy Policy changes).
+II. **Praying** – Opening our heart, softening our heart and emptying ourselves. Telling Him that we love Him – 2 Cor. 3:16; Psa. 62:8 (1 Minute)
 
-7. Contact Information
-   To ask questions or comment about this Privacy Policy and our privacy practices, contact us at: churchinbandung@gmail.com.
+III. **Pray-reading** – Using our exercised spirit to pray over a verse or two. Turning the verses into a personal prayer – Eph. 6:17-18; 2 Tim. 3:16 (2 1/2 Minutes)
+
+IV. **Confession** – Confessing the sins and offenses on our conscience and removing all blockages to fellowship. Asking for forgiveness and cleansing – 1 John 1:7, 9; Psa. 66:18; Isa. 59:1-2 (1 Minute)
+
+V. **Consecration** – Presenting ourselves to the Lord afresh, giving Him the full ground in us – Rom. 12:1-2; 6:13,19; Mark 12:30 (1/2 Minute)
+
+VI. **Thanksgiving** – Giving thanks for all things; for all the persons, situations and things in your life and praising Him – Eph. 5:20; 1 Thes. 5:18 (1/2 Minute)
+
+VII. **Petition** – Asking the Lord for needs, growth and persons that need salvation – 1 Tim. 2:1: Eph. 6:18; Matt. 7:7; Psa. 143:8 (1 Minute)
+
+# License 
+
+```
+   Copyright 2025 yacob89
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
+
