@@ -10,6 +10,7 @@ class PreferencesService {
   
   // Keys for preferences
   static const String _customDurationsKey = 'custom_activity_durations';
+  static const String _selectedLanguageKey = 'selected_language';
   
   // Save custom durations to shared preferences
   Future<void> saveCustomDurations(Map<String, int> durations) async {
@@ -68,6 +69,30 @@ class PreferencesService {
       await prefs.remove(_customDurationsKey);
     } catch (e) {
       debugPrint('💾 Error clearing custom durations: $e');
+    }
+  }
+  
+  // Save selected language
+  Future<void> saveSelectedLanguage(String language) async {
+    try {
+      debugPrint('💾 Saving selected language: $language');
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_selectedLanguageKey, language);
+    } catch (e) {
+      debugPrint('💾 Error saving selected language: $e');
+    }
+  }
+  
+  // Get selected language
+  Future<String?> getSelectedLanguage() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final language = prefs.getString(_selectedLanguageKey);
+      debugPrint('💾 Retrieved selected language: $language');
+      return language;
+    } catch (e) {
+      debugPrint('💾 Error getting selected language: $e');
+      return null;
     }
   }
 }

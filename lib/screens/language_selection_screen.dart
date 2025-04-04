@@ -3,6 +3,7 @@ import '../constants/app_colors.dart';
 import '../utils/localization.dart';
 import '../widgets/custom_button.dart';
 import '../services/notifications_service.dart';
+import '../services/preferences_service.dart';
 import 'activity_screen.dart';
 import 'settings_screen.dart';
 
@@ -18,6 +19,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
   late AnimationController _animationController;
   late Animation<double> _fadeInAnimation;
   Locale _currentLocale = Locale('en', '');
+  final PreferencesService _preferencesService = PreferencesService();
   
   @override
   void initState() {
@@ -34,7 +36,19 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
       ),
     );
     
+    _loadSavedLanguage();
     _animationController.forward();
+  }
+  
+  // Load the saved language if any
+  Future<void> _loadSavedLanguage() async {
+    final savedLanguage = await _preferencesService.getSelectedLanguage();
+    if (savedLanguage != null && mounted) {
+      setState(() {
+        _selectedLanguage = savedLanguage;
+        _setLocaleWithoutNavigation(savedLanguage);
+      });
+    }
   }
   
   @override
@@ -43,7 +57,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
     super.dispose();
   }
   
-  void _setLocale(BuildContext context, String language) {
+  // Set locale without navigation (used for loading saved language)
+  void _setLocaleWithoutNavigation(String language) {
     Locale locale;
     switch (language) {
       case 'Deutsch':
@@ -86,11 +101,20 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
     setState(() {
       _currentLocale = locale;
     });
+  }
+  
+  void _setLocale(BuildContext context, String language) {
+    // Set the locale
+    _setLocaleWithoutNavigation(language);
     
+    // Save the selected language
+    _preferencesService.saveSelectedLanguage(language);
+    
+    // Navigate to the activity screen
     Navigator.push(
       context, 
       MaterialPageRoute(
-        builder: (context) => ActivityScreen(locale: locale),
+        builder: (context) => ActivityScreen(locale: _currentLocale),
       ),
     );
   }
@@ -197,11 +221,11 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                               ),
                             ),
                             onChanged: (String? newValue) {
-                              setState(() {
-                                _selectedLanguage = newValue!;
-                                // Update current locale
-                                _setLocale(context, _selectedLanguage);
-                              });
+                              if (newValue != null) {
+                                setState(() {
+                                  _selectedLanguage = newValue;
+                                });
+                              }
                             },
                             style: TextStyle(
                               color: AppColors.textPrimary,
@@ -221,7 +245,6 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                           text: appLocalizations?.translate('start') ?? 'Start!',
                           onPressed: () => _setLocale(context, _selectedLanguage),
                         ),
-                        // SizedBox(height: 20),
                         // TextButton.icon(
                         //   icon: Icon(Icons.notifications, color: AppColors.primary),
                         //   label: Text('Test notification'),
