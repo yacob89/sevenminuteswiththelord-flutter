@@ -61,10 +61,10 @@ class NotificationsService {
   
   // Simple notification test method
   Future<void> testNotification() async {
-    showNotification(
-      title: 'Test Notification',
-      body: 'This is a test notification from Seven Minutes With The Lord app',
-    );
+    // showNotification(
+    //   title: 'Test Notification',
+    //   body: 'This is a test notification from Seven Minutes With The Lord app',
+    // );
     playNotificationSound();
   }
 }

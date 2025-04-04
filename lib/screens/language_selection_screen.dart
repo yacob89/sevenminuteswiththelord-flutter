@@ -4,7 +4,6 @@ import '../utils/localization.dart';
 import '../widgets/custom_button.dart';
 import '../services/notifications_service.dart';
 import '../services/preferences_service.dart';
-import '../services/theme_service.dart';
 import '../utils/theme_change_notification.dart';
 import 'activity_screen.dart';
 import 'settings_screen.dart';
@@ -109,6 +108,18 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
         break;
       case 'українська мова':
         locale = Locale('uk', '');
+        break;
+      case 'فارسی':
+        locale = Locale('fa', '');
+        break;
+      case 'ქართული':
+        locale = Locale('ka', '');
+        break;
+      case 'Język polski':
+        locale = Locale('pl', '');
+        break;
+      case 'தமிழ்':
+        locale = Locale('ta', '');
         break;
       default:
         locale = Locale('en', '');
@@ -255,7 +266,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                               color: AppColors.textPrimary,
                               fontSize: 16,
                             ),
-                            items: <String>['عربي', 'Bahasa Indonesia', '中文(简体)', '中文(繁體)', 'Deutsch', 'English',  'Español', '한국어', 'Portuguese', 'русский язык', 'Tagalog', 'українська мова']
+                            items: <String>['عربي', 'Bahasa Indonesia', '中文(简体)', '中文(繁體)', 'Deutsch', 'English',  'Español', 'فارسی', 'ქართული', 'Język polski', '한국어', 'Portuguese', 'русский язык', 'Tagalog', 'தமிழ்', 'українська мова']
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -269,14 +280,15 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                           text: appLocalizations?.translate('start') ?? 'Start!',
                           onPressed: () => _setLocale(context, _selectedLanguage),
                         ),
-                        // TextButton.icon(
-                        //   icon: Icon(Icons.notifications, color: AppColors.primary),
-                        //   label: Text('Test notification'),
-                        //   onPressed: _testNotification,
-                        //   style: TextButton.styleFrom(
-                        //     foregroundColor: AppColors.primary,
-                        //   ),
-                        // ),
+                        SizedBox(height: 20),
+                        TextButton.icon(
+                          icon: Icon(Icons.notifications, color: AppColors.primary),
+                          label: Text('Test notification sound'),
+                          onPressed: _testNotification,
+                          style: TextButton.styleFrom(
+                            foregroundColor: AppColors.primary,
+                          ),
+                        ),
                       ],
                     ),
                   ),
