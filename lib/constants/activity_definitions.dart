@@ -1,6 +1,8 @@
 import '../models/activity_data.dart';
+import '../services/preferences_service.dart';
 
 class ActivityDefinitions {
+  // Get default activities without any customization
   static List<ActivityData> getActivities() {
     return [
       ActivityData(
@@ -46,5 +48,30 @@ class ActivityDefinitions {
         durationInSeconds: 60,
       ),
     ];
+  }
+  
+  // Get activities with custom durations applied
+  static Future<List<ActivityData>> getCustomizedActivities() async {
+    // Get default activities
+    final activities = getActivities();
+    
+    // Get custom durations
+    final preferencesService = PreferencesService();
+    final customDurations = await preferencesService.getCustomDurations();
+    
+    // If no custom durations, return default activities
+    if (customDurations.isEmpty) {
+      return activities;
+    }
+    
+    // Apply custom durations to activities
+    return activities.map((activity) {
+      if (customDurations.containsKey(activity.id)) {
+        return activity.copyWith(
+          durationInSeconds: customDurations[activity.id],
+        );
+      }
+      return activity;
+    }).toList();
   }
 }

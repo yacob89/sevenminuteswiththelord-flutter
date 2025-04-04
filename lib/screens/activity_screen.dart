@@ -25,16 +25,11 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
   late List<ActivityData> _activities;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    
-    // Initialize the activities list
-    _activities = ActivityDefinitions.getActivities();
-    
-    // Set the initial seconds for the first activity
-    _seconds = _activities[_currentActivityIndex].durationInSeconds;
     
     // Set up animation controller
     _animationController = AnimationController(
@@ -50,9 +45,37 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
       ),
     );
     
-    // Start animation and timer
-    _animationController.forward();
-    _startTimer();
+    // Load customized activities
+    _loadActivities();
+  }
+  
+  Future<void> _loadActivities() async {
+    try {
+      // Load customized activities
+      final customizedActivities = await ActivityDefinitions.getCustomizedActivities();
+      
+      setState(() {
+        _activities = customizedActivities;
+        _seconds = _activities[_currentActivityIndex].durationInSeconds;
+        _isLoading = false;
+      });
+      
+      // Start animation and timer
+      _animationController.forward();
+      _startTimer();
+    } catch (e) {
+      print('Error loading activities: $e');
+      // Fallback to default activities if there's an error
+      setState(() {
+        _activities = ActivityDefinitions.getActivities();
+        _seconds = _activities[_currentActivityIndex].durationInSeconds;
+        _isLoading = false;
+      });
+      
+      // Start animation and timer
+      _animationController.forward();
+      _startTimer();
+    }
   }
   
   @override
@@ -170,6 +193,29 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations(widget.locale);
+    
+    if (_isLoading) {
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: AppColors.primary,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
+            onPressed: () => Navigator.pop(context),
+          ),
+          title: Text(
+            appLocalizations.translate('loading') ?? 'Loading...',
+            style: const TextStyle(color: AppColors.textOnPrimary),
+          ),
+        ),
+        body: Center(
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+          ),
+        ),
+      );
+    }
+    
     final currentActivity = _activities[_currentActivityIndex];
     
     return Scaffold(

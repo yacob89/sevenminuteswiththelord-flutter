@@ -4,6 +4,7 @@ import '../utils/localization.dart';
 import '../widgets/custom_button.dart';
 import '../services/notifications_service.dart';
 import 'activity_screen.dart';
+import 'settings_screen.dart';
 
 class LanguageSelectionScreen extends StatefulWidget {
   const LanguageSelectionScreen({super.key});
@@ -16,6 +17,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
   String _selectedLanguage = 'English';
   late AnimationController _animationController;
   late Animation<double> _fadeInAnimation;
+  Locale _currentLocale = Locale('en', '');
   
   @override
   void initState() {
@@ -81,10 +83,23 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
         locale = Locale('en', '');
     }
     
+    setState(() {
+      _currentLocale = locale;
+    });
+    
     Navigator.push(
       context, 
       MaterialPageRoute(
         builder: (context) => ActivityScreen(locale: locale),
+      ),
+    );
+  }
+  
+  void _openSettings() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SettingsScreen(locale: _currentLocale),
       ),
     );
   }
@@ -104,21 +119,42 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
         ),
         child: Column(
           children: <Widget>[
-            // App title section
+            // App title section with settings button
             Container(
               height: MediaQuery.of(context).size.height * 0.3,
-              alignment: Alignment.center,
-              child: FadeTransition(
-                opacity: _fadeInAnimation,
-                child: Text(
-                  appLocalizations?.translate('appTitle') ?? 'Seven Minutes With The Lord',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: AppColors.textOnPrimary,
-                    fontWeight: FontWeight.bold,
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+              child: Stack(
+                children: [
+                  // App title
+                  Center(
+                    child: FadeTransition(
+                      opacity: _fadeInAnimation,
+                      child: Text(
+                        appLocalizations?.translate('appTitle') ?? 'Seven Minutes With The Lord',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: AppColors.textOnPrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                  
+                  // Settings button
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.settings,
+                        color: AppColors.textOnPrimary,
+                        size: 28,
+                      ),
+                      onPressed: _openSettings,
+                    ),
+                  ),
+                ],
               ),
             ),
             
@@ -163,6 +199,8 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                             onChanged: (String? newValue) {
                               setState(() {
                                 _selectedLanguage = newValue!;
+                                // Update current locale
+                                _setLocale(context, _selectedLanguage);
                               });
                             },
                             style: TextStyle(
@@ -183,8 +221,6 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                           text: appLocalizations?.translate('start') ?? 'Start!',
                           onPressed: () => _setLocale(context, _selectedLanguage),
                         ),
-                        
-                        // Test notification button (for debugging)
                         // SizedBox(height: 20),
                         // TextButton.icon(
                         //   icon: Icon(Icons.notifications, color: AppColors.primary),
