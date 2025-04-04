@@ -31,7 +31,7 @@ class RoundIconButton extends StatelessWidget {
           alignment: Alignment.center,
           child: Icon(
             icon,
-            color: iconColor ?? AppColors.primary,
+            color: iconColor ?? AppColors.primary, // Using the dynamic primary color
             size: size * 0.5,
           ),
         ),
@@ -61,7 +61,8 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        foregroundColor: AppColors.primary, backgroundColor: AppColors.primaryLight,
+        foregroundColor: AppColors.primary, // Using the dynamic primary color
+        backgroundColor: AppColors.primaryLight, // Using the dynamic primary light color
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),

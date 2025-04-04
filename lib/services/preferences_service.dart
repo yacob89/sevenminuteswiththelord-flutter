@@ -11,6 +11,7 @@ class PreferencesService {
   // Keys for preferences
   static const String _customDurationsKey = 'custom_activity_durations';
   static const String _selectedLanguageKey = 'selected_language';
+  static const String _selectedThemeKey = 'selected_theme';
   
   // Save custom durations to shared preferences
   Future<void> saveCustomDurations(Map<String, int> durations) async {
@@ -92,6 +93,30 @@ class PreferencesService {
       return language;
     } catch (e) {
       debugPrint('💾 Error getting selected language: $e');
+      return null;
+    }
+  }
+  
+  // Save selected theme
+  Future<void> saveSelectedTheme(String theme) async {
+    try {
+      debugPrint('💾 Saving selected theme: $theme');
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(_selectedThemeKey, theme);
+    } catch (e) {
+      debugPrint('💾 Error saving selected theme: $e');
+    }
+  }
+  
+  // Get selected theme
+  Future<String?> getSelectedTheme() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final theme = prefs.getString(_selectedThemeKey);
+      debugPrint('💾 Retrieved selected theme: $theme');
+      return theme;
+    } catch (e) {
+      debugPrint('💾 Error getting selected theme: $e');
       return null;
     }
   }

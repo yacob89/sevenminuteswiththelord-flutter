@@ -4,6 +4,8 @@ import '../utils/localization.dart';
 import '../widgets/custom_button.dart';
 import '../services/notifications_service.dart';
 import '../services/preferences_service.dart';
+import '../services/theme_service.dart';
+import '../utils/theme_change_notification.dart';
 import 'activity_screen.dart';
 import 'settings_screen.dart';
 
@@ -20,6 +22,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
   late Animation<double> _fadeInAnimation;
   Locale _currentLocale = Locale('en', '');
   final PreferencesService _preferencesService = PreferencesService();
+  final ThemeChangeNotifier _themeChangeNotifier = ThemeChangeNotifier();
   
   @override
   void initState() {
@@ -36,8 +39,27 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
       ),
     );
     
+    // Listen for theme changes to rebuild this screen
+    _themeChangeNotifier.themeChanged.addListener(_onThemeChanged);
+    
     _loadSavedLanguage();
     _animationController.forward();
+  }
+  
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _themeChangeNotifier.themeChanged.removeListener(_onThemeChanged);
+    super.dispose();
+  }
+  
+  // Rebuild screen when theme changes
+  void _onThemeChanged() {
+    if (mounted) {
+      setState(() {
+        // Rebuild with new theme
+      });
+    }
   }
   
   // Load the saved language if any
@@ -49,12 +71,6 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
         _setLocaleWithoutNavigation(savedLanguage);
       });
     }
-  }
-  
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
   
   // Set locale without navigation (used for loading saved language)
@@ -119,13 +135,21 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
     );
   }
   
-  void _openSettings() {
-    Navigator.push(
+  void _openSettings() async {
+    // Navigate to settings and wait for result
+    final result = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => SettingsScreen(locale: _currentLocale),
       ),
     );
+    
+    // Force rebuild after returning from settings
+    if (mounted) {
+      setState(() {
+        // Rebuild with current theme
+      });
+    }
   }
   
   void _testNotification() {
@@ -139,7 +163,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: AppColors.primary,
+          color: AppColors.primary, // This will update with the new theme
         ),
         child: Column(
           children: <Widget>[

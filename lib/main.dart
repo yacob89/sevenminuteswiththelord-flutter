@@ -5,6 +5,7 @@ import 'screens/language_selection_screen.dart';
 import 'utils/localization.dart';
 import 'services/notifications_service.dart';
 import 'services/wakelock_service.dart';
+import 'services/theme_service.dart';
 import 'constants/app_colors.dart';
 
 void main() async {
@@ -15,6 +16,18 @@ void main() async {
   
   // Initialize wake lock service to keep screen on
   await WakeLockService().initialize();
+  
+  // Initialize theme
+  final themeService = ThemeService();
+  await themeService.loadSavedTheme();
+  
+  // Update AppColors with the saved theme
+  final currentTheme = themeService.currentTheme;
+  AppColors.updateThemeColors(
+    newPrimary: currentTheme.primary,
+    newPrimaryLight: currentTheme.primaryLight,
+    newPrimaryDark: currentTheme.primaryDark,
+  );
   
   runApp(MyApp());
 }
@@ -27,6 +40,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+  final ThemeService _themeService = ThemeService();
+  
   @override
   void initState() {
     super.initState();
@@ -54,23 +69,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
     return MaterialApp(
       title: 'Seven Minutes With The Lord',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: AppColors.primary,
-        primarySwatch: Colors.deepPurple,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: AppColors.background,
-        appBarTheme: AppBarTheme(
-          color: AppColors.primary,
-          elevation: 0,
-        ),
-        buttonTheme: ButtonThemeData(
-          buttonColor: AppColors.primary,
-          textTheme: ButtonTextTheme.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-      ),
+      theme: _themeService.getThemeData(),
       home: LanguageSelectionScreen(),
       localizationsDelegates: [
         AppLocalizations.delegate,
@@ -82,6 +81,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         Locale('en', ''), // English
         Locale('de', ''), // German
         Locale('es', ''), // Spanish
+        Locale('ar', ''), // Arabic
+        Locale('id', ''), // Bahasa Indonesia
+        Locale('zh', ''), // Chinese (Simplified)
+        Locale('zt', ''), // Chinese (Traditional)
+        Locale('ko', ''), // Korean
+        Locale('pt', ''), // Portuguese
+        Locale('ru', ''), // Russian
+        Locale('tl', ''), // Tagalog
+        Locale('uk', ''), // Ukrainian
       ],
     );
   }

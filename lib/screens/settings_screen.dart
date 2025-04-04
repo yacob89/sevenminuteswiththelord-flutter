@@ -3,7 +3,9 @@ import '../constants/app_colors.dart';
 import '../constants/activity_definitions.dart';
 import '../models/activity_data.dart';
 import '../services/preferences_service.dart';
+import '../services/theme_service.dart';
 import '../utils/localization.dart';
+import '../utils/theme_change_notification.dart';
 
 class SettingsScreen extends StatefulWidget {
   final Locale locale;
@@ -18,11 +20,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
   late List<ActivityData> _activities;
   final Map<String, int> _customDurations = {};
   final PreferencesService _preferencesService = PreferencesService();
+  final ThemeService _themeService = ThemeService();
+  final ThemeChangeNotifier _themeChangeNotifier = ThemeChangeNotifier();
+  String _selectedTheme = 'purple'; // Default theme
+  String _pendingTheme = 'purple'; // Theme that will be applied when Apply button is pressed
   
   @override
   void initState() {
     super.initState();
     _loadActivities();
+    _loadSelectedTheme();
+  }
+  
+  Future<void> _loadSelectedTheme() async {
+    final savedTheme = await _preferencesService.getSelectedTheme();
+    if (savedTheme != null && mounted) {
+      setState(() {
+        _selectedTheme = savedTheme;
+        _pendingTheme = savedTheme;
+      });
+    }
   }
   
   Future<void> _loadActivities() async {
@@ -55,6 +72,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
     // Return custom duration if set, otherwise return default
     return _customDurations[activityId] ?? defaultDuration;
   }
+  
+  // Select theme (just updates UI, doesn't apply yet)
+  void _selectTheme(String themeKey) {
+    if (_pendingTheme != themeKey) {
+      setState(() {
+        _pendingTheme = themeKey;
+      });
+    }
+  }
+  
+  // Apply and save the selected theme
+  Future<void> _applyTheme() async {
+    if (_selectedTheme != _pendingTheme) {
+      // Apply theme immediately
+      _themeService.applyTheme(_pendingTheme);
+      
+      // Save theme to preferences
+      await _themeService.saveTheme(_pendingTheme);
+      
+      setState(() {
+        _selectedTheme = _pendingTheme;
+      });
+      
+      // Show success snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Theme applied successfully',
+          ),
+          backgroundColor: AppColors.success,
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +117,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         backgroundColor: AppColors.primary,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.textOnPrimary),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            Navigator.pop(context, true); // Return true to indicate settings were changed
+          },
         ),
         title: Text(
           'Settings',
@@ -93,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Description
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text(
+              child: Text( 
                 'Customize the duration for each activity in 30-second increments. The minimum value is the default duration.',
                 style: const TextStyle(
                   fontSize: 14,
@@ -107,8 +161,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             // Activity duration settings
             ..._activities.map((activity) => _buildActivityDurationSetting(activity, appLocalizations)),
             
-            const SizedBox(height: 24.0),
-            
+            const SizedBox(height: 16.0),
+
             // Reset button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -131,7 +185,56 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             
-            const SizedBox(height: 40.0),
+            const SizedBox(height: 16.0),
+            
+            // Theme selection section
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'App Theme',
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ),
+            
+            // Theme description
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                'Choose a color theme for the app.',
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+            
+            const Divider(),
+            
+            // Theme options
+            _buildThemeSelector(appLocalizations),
+            
+            // Apply Theme button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              child: ElevatedButton.icon(
+                onPressed: _applyTheme,
+                icon: const Icon(Icons.check_circle, color: AppColors.textOnPrimary),
+                label: Text(
+                  'Apply Theme',
+                  style: const TextStyle(color: AppColors.textOnPrimary),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primary,
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                ),
+              ),
+            ),
+            
+            const SizedBox(height: 24.0),
           ],
         ),
       ),
@@ -218,6 +321,75 @@ class _SettingsScreenState extends State<SettingsScreen> {
           
           const Divider(),
         ],
+      ),
+    );
+  }
+  
+  // Build theme selection grid
+  Widget _buildThemeSelector(AppLocalizations appLocalizations) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 1.0,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+        ),
+        itemCount: ThemeService.themeOptions.length,
+        itemBuilder: (context, index) {
+          final themeKey = ThemeService.themeOptions.keys.elementAt(index);
+          final theme = ThemeService.themeOptions[themeKey]!;
+          final isSelected = _pendingTheme == themeKey;
+          
+          return GestureDetector(
+            onTap: () => _selectTheme(themeKey),
+            child: Container(
+              decoration: BoxDecoration(
+                color: theme.primaryLight,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: isSelected ? theme.primary : Colors.transparent,
+                  width: 2,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: theme.primary,
+                      shape: BoxShape.circle,
+                      boxShadow: isSelected ? [
+                        BoxShadow(
+                          color: theme.primary.withOpacity(0.4),
+                          blurRadius: 8,
+                          spreadRadius: 2,
+                        )
+                      ] : null,
+                    ),
+                    child: isSelected 
+                      ? Icon(Icons.check, color: Colors.white) 
+                      : null,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    appLocalizations.translate(themeKey) ?? theme.name,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -304,7 +304,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
                 },
                 child: Text(
                   appLocalizations.translate('goBack'),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primary,
                     fontSize: 16,
                   ),
