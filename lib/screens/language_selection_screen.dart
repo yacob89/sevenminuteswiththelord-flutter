@@ -12,10 +12,10 @@ class LanguageSelectionScreen extends StatefulWidget {
   const LanguageSelectionScreen({super.key});
 
   @override
-  _LanguageSelectionScreenState createState() => _LanguageSelectionScreenState();
+  LanguageSelectionScreenState createState() => LanguageSelectionScreenState();
 }
 
-class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with SingleTickerProviderStateMixin {
+class LanguageSelectionScreenState extends State<LanguageSelectionScreen> with SingleTickerProviderStateMixin {
   String _selectedLanguage = 'English';
   late AnimationController _animationController;
   late Animation<double> _fadeInAnimation;
@@ -148,7 +148,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
   
   void _openSettings() async {
     // Navigate to settings and wait for result
-    final result = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => SettingsScreen(locale: _currentLocale),
@@ -189,7 +189,7 @@ class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with 
                     child: FadeTransition(
                       opacity: _fadeInAnimation,
                       child: Text(
-                        appLocalizations?.translate('appTitle') ?? 'Seven Minutes With The Lord',
+                        appLocalizations?.translate('appTitle') ?? '7 Minutes With The Lord',
                         style: TextStyle(
                           fontSize: 24,
                           color: AppColors.textOnPrimary,

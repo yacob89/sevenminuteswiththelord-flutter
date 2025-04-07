@@ -63,7 +63,7 @@ class NotificationsService {
   Future<void> testNotification() async {
     // showNotification(
     //   title: 'Test Notification',
-    //   body: 'This is a test notification from Seven Minutes With The Lord app',
+    //   body: 'This is a test notification from 7 Minutes With The Lord app',
     // );
     playNotificationSound();
   }

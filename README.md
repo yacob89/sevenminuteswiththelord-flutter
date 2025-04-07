@@ -16,7 +16,7 @@ This app is registered to Church in Bandung. Any form to redistribute the app wi
 
 # Description
 
-Seven Minutes with the Lord
+7 Minutes with the Lord
 
 ## CPPCCTP
 

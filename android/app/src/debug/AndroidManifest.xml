@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
    <application
-        android:label="Seven Minutes With The Lord"
+        android:label="7 Minutes With The Lord"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

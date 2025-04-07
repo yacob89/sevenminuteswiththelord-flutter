@@ -14,10 +14,10 @@ class ActivityScreen extends StatefulWidget {
   const ActivityScreen({super.key, required this.locale});
   
   @override
-  _ActivityScreenState createState() => _ActivityScreenState();
+  ActivityScreenState createState() => ActivityScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProviderStateMixin {
+class ActivityScreenState extends State<ActivityScreen> with SingleTickerProviderStateMixin {
   int _currentActivityIndex = 0;
   int _seconds = 0;
   bool _isPlaying = true;
@@ -64,7 +64,6 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
       _animationController.forward();
       _startTimer();
     } catch (e) {
-      print('Error loading activities: $e');
       // Fallback to default activities if there's an error
       setState(() {
         _activities = ActivityDefinitions.getActivities();
@@ -204,7 +203,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
-            appLocalizations.translate('loading') ?? 'Loading...',
+            'Loading...',
             style: const TextStyle(color: AppColors.textOnPrimary),
           ),
         ),

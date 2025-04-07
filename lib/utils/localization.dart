@@ -37,7 +37,7 @@ class AppLocalizations {
       'petitionDescription': 'اسأل الرب الإحتياجات، النمو والأشخاص المحتاجين للخلاص - (١ تي ١:٢، أف ١٨:٦، مت ٧:٧، مز ٨:١٤٣)',
     },
     'en': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -106,7 +106,7 @@ class AppLocalizations {
       'petitionDescription': 'Pedirle al Señor por las necesidades, el crecimiento y las personas que necesitan salvación - 1 Tim. 2:1: Ef. 6:18; Mat. 7:7; Sal. 143:8',
     },
     'id': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Mulai!',
       'goBack': 'Kembali',
       'language': 'Bahasa',
@@ -129,7 +129,7 @@ class AppLocalizations {
       'petitionDescription': 'Memohon kepada Tuhan untuk semua kebutuhan kita, pertumbuhan kita, dan orang-orang yang memerlukan keselamatan - 1 Timotius 2:1: Efesus 6:18; Matius 7:7; Mazmur 143:8',
     },
     'ko': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -152,7 +152,7 @@ class AppLocalizations {
       'petitionDescription': '주님께 필요, 성장 그리고 구원이 필요한  사람을 구함 &#8211; 1 팀. 2:1: 엡 6:18; 마 7:7; 시 143:8',
     },
     'pt': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -175,7 +175,7 @@ class AppLocalizations {
       'petitionDescription': 'Pedir ao Senhor por necessidades, crescimento e por pessoas que precisam de salvação - 1Tm 2:1; Ef 6:18; Mt 7:7; Sl 143:8',
     },
     'ru': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -198,7 +198,7 @@ class AppLocalizations {
       'petitionDescription': 'Просить Господа в отношении нужд, роста и людей, которые нуждаются в спасении - 1Тим. 2:1; Эф. 6:18; Мф. 7:7; Пс. 143:8',
     },
     'tl': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -221,7 +221,7 @@ class AppLocalizations {
       'petitionDescription': 'Humihiling sa Panginoon para sa mga pangangailangan, paglago at mga tao na nangangailangan ng kaligtasan - 1Tim 2:1; Efe 6:18; Mat 7:7; Awit 143:8',
     },
     'uk': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -244,7 +244,7 @@ class AppLocalizations {
       'petitionDescription': 'Просити Господа за потреби, зростання та осіб, які потребують спасіння - 1Тим. 2:1; Еф. 6:18; Матвія 7:7; Пс. 143:8',
     },
     'zh': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -267,7 +267,7 @@ class AppLocalizations {
       'petitionDescription': '为着自己的需要，生命的长大，以及别人的得救，向主祈求 - 提前二:1: 弗六:18; 太七:7; 诗一百四十三:8',
     },
     'zt': {
-      'appTitle': 'Seven Minutes With The Lord',
+      'appTitle': '7 Minutes With The Lord',
       'start': 'Start!',
       'goBack': 'Go back',
       'language': 'Language',
@@ -382,7 +382,7 @@ class AppLocalizations {
       'petitionDescription': 'ვილოცოთ უფლის წინაშე საჭიროებებისთვის, სიცოცხლეში ზრდისთვის და ადამიანებისთვის, რომლებსაც გადარჩენა სჭირდებათ – 1 ტიმ. 2:1; ეფ. 6:18; მათე 7:7; ფსალ. 142:8',
     },
     // 'template': {
-    //   'appTitle': 'Seven Minutes With The Lord',
+    //   'appTitle': '7 Minutes With The Lord',
     //   'start': 'Start!',
     //   'goBack': 'Go back',
     //   'language': 'Language',

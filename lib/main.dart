@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'screens/language_selection_screen.dart';
@@ -9,6 +10,9 @@ import 'services/theme_service.dart';
 import 'constants/app_colors.dart';
 
 void main() async {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  statusBarColor: Colors.transparent,
+));
   WidgetsFlutterBinding.ensureInitialized();
   
   // Initialize notification service
@@ -36,10 +40,10 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
+class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   final ThemeService _themeService = ThemeService();
   
   @override
@@ -67,7 +71,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Seven Minutes With The Lord',
+      title: '7 Minutes With The Lord',
       debugShowCheckedModeBanner: false,
       theme: _themeService.getThemeData(),
       home: LanguageSelectionScreen(),
@@ -85,9 +89,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         Locale('id', ''), // Bahasa Indonesia
         Locale('zh', ''), // Chinese (Simplified)
         Locale('zt', ''), // Chinese (Traditional)
+        Locale('fa', ''), // Farsi
+        Locale('ka', ''), // Georgian
+        Locale('pl', ''), // Polish
         Locale('ko', ''), // Korean
         Locale('pt', ''), // Portuguese
         Locale('ru', ''), // Russian
+        Locale('ta', ''), // Tamil
         Locale('tl', ''), // Tagalog
         Locale('uk', ''), // Ukrainian
       ],
