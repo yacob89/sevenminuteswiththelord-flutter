@@ -6,9 +6,9 @@ The purpose of this app is to practice our daily contact with The Lord.
 
 Google Playstore link:
 
-[![Google Play Badge](https://storage.googleapis.com/pe-portal-consumer-prod-wagtail-static/images/googleplay-badge-01-getit.width-1440.format-webp.webp?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=wagtail%40pe-portal-consumer-prod.iam.gserviceaccount.com%2F20250402%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20250402T014353Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=0266be66d89832d0f150dcb14d3b8e5657ea2e350d9de3f327cec006003e84091a4bab8842552ad876c64926834318055eec6f949079513ea7b27bfc5849ff52262709b075b6db3ebd02adfdc2cef0fd0039ba1a786920d803da6b342c84f789396e4419196ee4b400e256dca4f7af3575686b25b66d5bd19ad7465fa5f0c72af045646196723adf8a0efd4ec5e6150de7a847554960d8e1e8168d2c2e5bd4569eb0508d495d67d3d6ea031f1922372bbae569dc76d5e81f4c6d420659b8de74e3b305a33215e4c39e21b96a9eda626ad03dec155f391270190dbe56869d47a37750923d9e6fbf184cd2182035a3d3dd7d2e477bcb23442fbbec48fdc519ebac)](https://play.google.com/store/apps/details?id=com.churchinbandung.seven_minutes_with_the_lord)
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.churchinbandung.seven_minutes_with_the_lord)
 
-Current version: 1.0.0
+Current version: 1.0.1
 
 If you interested to contribute in this project, email me at: yacob.madiana@gmail.com.
 
