@@ -10,10 +10,22 @@ import 'services/theme_service.dart';
 import 'constants/app_colors.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-  statusBarColor: Colors.transparent,
-));
   WidgetsFlutterBinding.ensureInitialized();
+  
+  // Set up edge-to-edge display
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge,
+    overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+  );
+  
+  // Set transparent system bars
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent,
+    systemNavigationBarIconBrightness: Brightness.dark,
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   
   // Initialize notification service
   await NotificationsService().initialize();
@@ -98,6 +110,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
         Locale('ta', ''), // Tamil
         Locale('tl', ''), // Tagalog
         Locale('uk', ''), // Ukrainian
+        Locale('ja', ''), // Japanese
       ],
     );
   }

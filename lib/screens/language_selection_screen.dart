@@ -94,6 +94,9 @@ class LanguageSelectionScreenState extends State<LanguageSelectionScreen> with S
       case '中文(繁體)':
         locale = Locale('zt', '');
         break;
+      case '日本語':
+        locale = Locale('ja', '');
+        break;
       case '한국어':
         locale = Locale('ko', '');
         break;
@@ -266,7 +269,7 @@ class LanguageSelectionScreenState extends State<LanguageSelectionScreen> with S
                               color: AppColors.textPrimary,
                               fontSize: 16,
                             ),
-                            items: <String>['عربي', 'Bahasa Indonesia', '中文(简体)', '中文(繁體)', 'Deutsch', 'English',  'Español', 'فارسی', 'ქართული', 'Język polski', '한국어', 'Portuguese', 'русский язык', 'Tagalog', 'தமிழ்', 'українська мова']
+                            items: <String>['عربي', 'Bahasa Indonesia', '中文(简体)', '中文(繁體)', 'Deutsch', 'English',  'Español', '日本語', 'فارسی', 'ქართული', 'Język polski', '한국어', 'Portuguese', 'русский язык', 'Tagalog', 'தமிழ்', 'українська мова']
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
